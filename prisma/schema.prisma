@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Prompt {
+  id          String   @id @default(cuid())
+  title       String
+  content     String   // The actual prompt text
+  description String?  // Optional description
+  color       String   @default("#007ACC") // VSCode blue default
+  categoryId  String?
+  category    Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  tags        PromptTag[]
+  
+  // AI enhancement tracking
+  isEnhanced  Boolean  @default(false)
+  originalContent String? // Store original before enhancement
+  enhancedBy  String?  // AI model used for enhancement
+  memoryPatternsUsed String? // JSON array of pattern IDs used
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([categoryId])
+  @@index([isEnhanced])
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  color     String   // VSCode category color
+  icon      String?  // Lucide icon name
+  prompts   Prompt[]
+  isDefault Boolean  @default(false) // True for predefined categories
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Tag {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  prompts   PromptTag[]
+  createdAt DateTime @default(now())
+}
+
+model PromptTag {
+  prompt    Prompt   @relation(fields: [promptId], references: [id], onDelete: Cascade)
+  promptId  String
+  tag       Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  tagId     String
+
+  @@id([promptId, tagId])
+}

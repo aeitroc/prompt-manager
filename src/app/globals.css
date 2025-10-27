@@ -1,0 +1,170 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* VSCode Dark Theme Base */
+@layer base {
+  :root {
+    /* Always dark mode - VSCode theme */
+    --background: 30 30 30;           /* #1E1E1E */
+    --foreground: 204 204 204;        /* #CCCCCC */
+    
+    --primary: 0 122 204;             /* #007ACC */
+    --primary-foreground: 255 255 255;
+    
+    --secondary: 62 62 66;            /* #3E3E42 */
+    --secondary-foreground: 204 204 204;
+    
+    --accent: 0 152 255;              /* #0098FF */
+    --accent-foreground: 255 255 255;
+    
+    --muted: 45 45 48;                /* #2D2D30 */
+    --muted-foreground: 157 157 157;  /* #9D9D9D */
+    
+    --destructive: 244 135 113;       /* #F48771 */
+    --destructive-foreground: 255 255 255;
+    
+    --border: 69 69 69;               /* #454545 */
+    --input: 62 62 66;                /* #3E3E42 */
+    --ring: 0 122 204;                /* #007ACC */
+    
+    --radius: 0.25rem;                /* VSCode uses subtle rounding */
+  }
+  
+  * {
+    @apply border-bdr-default;
+  }
+  
+  body {
+    @apply bg-bg-primary text-txt-primary font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  /* Scrollbar styling (VSCode-like) */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-bg-secondary;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-bdr-subtle hover:bg-bdr-default;
+    border-radius: 5px;
+  }
+}
+
+/* Custom utilities */
+@layer utilities {
+  .vscode-input {
+    @apply bg-bg-tertiary text-txt-primary border-bdr-subtle 
+           focus:border-bdr-focus focus:ring-1 focus:ring-vscode-blue
+           placeholder:text-txt-muted;
+  }
+  
+  .vscode-card {
+    @apply bg-bg-secondary border border-bdr-subtle rounded-sm
+           hover:border-bdr-default transition-colors duration-150;
+  }
+  
+  .vscode-button-primary {
+    @apply bg-vscode-blue hover:bg-vscode-blue-light
+           text-white font-medium px-4 py-2 rounded-sm
+           transition-colors duration-150;
+  }
+  
+  .vscode-button-secondary {
+    @apply bg-bg-elevated hover:bg-bdr-default
+           text-txt-primary font-medium px-4 py-2 rounded-sm
+           border border-bdr-subtle
+           transition-colors duration-150;
+  }
+
+  /* Screen reader only content */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  .sr-only:not(:focus):not(:active) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+    white-space: nowrap;
+  }
+
+  /* Focus visible styles */
+  .focus-visible:focus {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  /* Smooth transitions for hover states */
+  .transition-smooth {
+    @apply transition-all duration-150 ease-out;
+  }
+
+  /* Mobile menu transitions */
+  .mobile-menu-enter {
+    animation: slideIn 200ms ease-out;
+  }
+
+  .mobile-menu-exit {
+    animation: slideOut 200ms ease-in;
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideOut {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+  
+  /* Text truncation utilities */
+  .line-clamp-1 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+  
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  
+  .line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+}
