@@ -62,7 +62,7 @@ export const PROMPT_COLORS = [
   { name: 'Sky', value: '#61AFEF' },
   { name: 'Mint', value: '#56B6C2' },
   { name: 'Sage', value: '#98C379' },
-  { name: 'Gold', value: '#E5C07B' },
+  { name: 'Gold', value: '#D19A66' },
   { name: 'Rose', value: '#E88388' },
   { name: 'Violet', value: '#BB80B3' },
   { name: 'Ocean', value: '#4078A3' },

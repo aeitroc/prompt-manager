@@ -78,9 +78,10 @@ export default function HomePage() {
     setActiveSection(section)
   }
 
-  const handlePromptSelect = (prompt: Prompt & { category: Category | null; tags: Tag[] }) => {
-    setEditingPrompt(prompt)
-    setDialogOpen(true)
+  const handlePromptSelect = (prompt: Prompt) => {
+    // For now, just scroll to the prompt in the list
+    // In a real implementation, this might open a preview or navigate to details
+    console.log('Selected prompt:', prompt.title)
   }
 
   
@@ -165,7 +166,7 @@ export default function HomePage() {
               onEdit={handleEditPrompt}
               onEnhance={handleEnhancePrompt}
               onDelete={handleDeletePrompt}
-              onPromptClick={handlePromptSelect}
+              view="grid"
             />
           )}
         </div>

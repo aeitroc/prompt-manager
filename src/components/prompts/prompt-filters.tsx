@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { ViewToggle } from './view-toggle'
 import { X } from 'lucide-react'
 import { useCategories } from '@/hooks/use-categories'
 import { useTags } from '@/hooks/use-tags'
@@ -69,9 +68,6 @@ export function PromptFilters({ filters, onFilterChange }: PromptFiltersProps) {
             </Button>
           )}
         </div>
-        
-        {/* View toggle */}
-        <ViewToggle />
       </div>
       
       {/* Active tag filters */}

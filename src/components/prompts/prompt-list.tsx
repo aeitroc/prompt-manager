@@ -1,8 +1,6 @@
 'use client'
 
 import { PromptCard } from './prompt-card'
-import { PromptListItem } from './prompt-list-item'
-import { useViewStore } from '@/store/view-store'
 import { FileText, Loader2 } from 'lucide-react'
 import type { Prompt, Category, Tag } from '@/types/prompt'
 
@@ -15,14 +13,14 @@ interface PromptListProps {
   onPromptClick?: (prompt: Prompt & { category: Category | null; tags: Tag[] }) => void
 }
 
-export function PromptList({ 
-  prompts, 
-  isLoading, 
-  onEdit, 
+export function PromptList({
+  prompts,
+  isLoading,
+  onEdit,
   onDelete,
-  onPromptClick 
+  onEnhance,
+  onPromptClick
 }: PromptListProps) {
-  const { viewMode } = useViewStore()
   
   // Loading state
   if (isLoading) {
@@ -46,32 +44,16 @@ export function PromptList({
     )
   }
   
-  // Card view (grid)
-  if (viewMode === 'card') {
-    return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {prompts.map((prompt) => (
-          <PromptCard
-            key={prompt.id}
-            prompt={prompt}
-            onEdit={onEdit}
-            onDelete={onDelete}
-            onClick={onPromptClick}
-          />
-        ))}
-      </div>
-    )
-  }
-  
-  // List view
+  // Grid view only
   return (
-    <div className="space-y-2">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {prompts.map((prompt) => (
-        <PromptListItem
+        <PromptCard
           key={prompt.id}
           prompt={prompt}
           onEdit={onEdit}
           onDelete={onDelete}
+          onEnhance={onEnhance}
           onClick={onPromptClick}
         />
       ))}

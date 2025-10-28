@@ -8,27 +8,60 @@
     /* Always dark mode - VSCode theme */
     --background: 30 30 30;           /* #1E1E1E */
     --foreground: 204 204 204;        /* #CCCCCC */
-    
+
     --primary: 0 122 204;             /* #007ACC */
     --primary-foreground: 255 255 255;
-    
+
     --secondary: 62 62 66;            /* #3E3E42 */
     --secondary-foreground: 204 204 204;
-    
+
     --accent: 0 152 255;              /* #0098FF */
     --accent-foreground: 255 255 255;
-    
+
     --muted: 45 45 48;                /* #2D2D30 */
     --muted-foreground: 157 157 157;  /* #9D9D9D */
-    
+
     --destructive: 244 135 113;       /* #F48771 */
     --destructive-foreground: 255 255 255;
-    
+
     --border: 69 69 69;               /* #454545 */
     --input: 62 62 66;                /* #3E3E42 */
     --ring: 0 122 204;                /* #007ACC */
-    
+
     --radius: 0.25rem;                /* VSCode uses subtle rounding */
+
+    /* Enhanced design tokens */
+    --spacing-1: 0.25rem;   /* 4px */
+    --spacing-2: 0.5rem;    /* 8px */
+    --spacing-3: 0.75rem;   /* 12px */
+    --spacing-4: 1rem;      /* 16px */
+    --spacing-6: 1.5rem;    /* 24px */
+    --spacing-8: 2rem;      /* 32px */
+
+    /* Enhanced color tokens */
+    --color-bg-primary: 30 30 30;
+    --color-bg-secondary: 35 35 38;
+    --color-bg-tertiary: 45 45 48;
+    --color-bg-elevated: 62 62 66;
+
+    --color-txt-primary: 204 204 204;
+    --color-txt-secondary: 157 157 157;
+    --color-txt-muted: 106 106 106;
+    --color-txt-subtle: 64 64 64;
+
+    --color-bdr-subtle: 62 62 66;
+    --color-bdr-default: 69 69 69;
+    --color-bdr-strong: 90 90 90;
+    --color-bdr-focus: 0 122 204;
+
+    /* Animation tokens */
+    --duration-fast: 150ms;
+    --duration-normal: 200ms;
+    --duration-slow: 300ms;
+
+    --ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   * {
@@ -145,7 +178,437 @@
       opacity: 0;
     }
   }
-  
+
+  /* Enhanced mobile responsiveness */
+  @media (max-width: 640px) {
+    /* Ensure touch targets meet minimum 44px */
+    .touch-target {
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    /* Mobile-first spacing adjustments */
+    .mobile-spacing {
+      padding: 1rem;
+    }
+
+    /* Improved mobile text sizing */
+    .mobile-text {
+      font-size: 16px; /* Prevent zoom on iOS */
+    }
+
+    /* Mobile-optimized hover states */
+    .mobile-hover {
+      position: relative;
+    }
+
+    .mobile-hover:active {
+      transform: scale(0.98);
+      transition: transform 100ms ease-out;
+    }
+
+    /* Mobile-safe tap targets */
+    button, a, input, textarea, select {
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    /* Mobile keyboard considerations */
+    input:focus, textarea:focus, select:focus {
+      font-size: 16px; /* Prevent zoom on focus */
+    }
+  }
+
+  /* Tablet responsiveness */
+  @media (min-width: 641px) and (max-width: 1024px) {
+    .tablet-spacing {
+      padding: 1.5rem;
+    }
+
+    .tablet-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Enhanced accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .vscode-card {
+      border-width: 2px;
+      border-color: var(--color-bdr-strong);
+    }
+
+    .vscode-button-primary {
+      border: 2px solid var(--color-vscode-blue);
+    }
+
+    .vscode-button-secondary {
+      border: 2px solid var(--color-bdr-strong);
+    }
+  }
+
+  /* Focus visible improvements for better keyboard navigation */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-vscode-blue focus:ring-offset-2 focus:ring-offset-bg-primary;
+  }
+
+  /* Skip to main content link for screen readers */
+  .skip-to-main {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: var(--color-vscode-blue);
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    border-radius: 4px;
+    z-index: 100;
+    transition: top 0.3s;
+  }
+
+  .skip-to-main:focus {
+    top: 6px;
+  }
+
+  /* Custom scrollbar for mobile devices */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-bdr-default) transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--color-bdr-default);
+    border-radius: 3px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-bdr-strong);
+  }
+
+  /* Mobile-first responsive typography */
+  .responsive-text {
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
+    line-height: 1.5;
+  }
+
+  .responsive-heading {
+    font-size: clamp(1.125rem, 4vw, 1.5rem);
+    line-height: 1.2;
+  }
+
+  .responsive-title {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    line-height: 1.1;
+  }
+
+  /* Touch-friendly spacing for mobile */
+  .touch-friendly-spacing > * + * {
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 640px) {
+    .touch-friendly-spacing > * + * {
+      margin-top: 1.25rem;
+    }
+  }
+
+  /* Improved mobile cards */
+  .mobile-card {
+    @apply p-4 rounded-sm border border-bdr-subtle bg-bg-secondary;
+    touch-action: manipulation;
+  }
+
+  .mobile-card:active {
+    transform: scale(0.99);
+    transition: transform 150ms ease-out;
+  }
+
+  /* Mobile-safe inputs */
+  .mobile-input {
+    @apply w-full px-4 py-3 text-base bg-bg-tertiary border border-bdr-subtle rounded-sm;
+    font-size: 16px; /* Prevent zoom on iOS */
+    min-height: 44px;
+  }
+
+  .mobile-input:focus {
+    @apply outline-none ring-2 ring-vscode-blue border-vscode-blue;
+  }
+
+  /* Enhanced micro-interactions and polish */
+  .micro-interact {
+    transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .micro-interact:hover {
+    transform: translateY(-1px);
+  }
+
+  .micro-interact:active {
+    transform: translateY(0);
+  }
+
+  /* Smooth gradient animations */
+  .gradient-animate {
+    background: linear-gradient(270deg, var(--color-vscode-blue), var(--color-vscode-blue-light), var(--color-vscode-blue));
+    background-size: 600% 600%;
+    animation: gradientShift 3s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Pulse animation for important elements */
+  .pulse-gentle {
+    animation: pulseGentle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulseGentle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+  }
+
+  /* Subtle glow effect */
+  .glow-subtle {
+    box-shadow: 0 0 20px hsl(207, 89%, 49% / 0.1);
+    transition: box-shadow 150ms ease-out;
+  }
+
+  .glow-subtle:hover {
+    box-shadow: 0 0 30px hsl(207, 89%, 49% / 0.2);
+  }
+
+  /* Smooth loading skeleton */
+  .skeleton-shimmer {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      hsl(220, 8%, 23%),
+      transparent
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  /* Success feedback animation */
+  .success-feedback {
+    animation: successPulse 0.6s ease-out;
+  }
+
+  @keyframes successPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+
+  /* Error shake animation */
+  .error-shake {
+    animation: shake 0.5s ease-in-out;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
+    20%, 40%, 60%, 80% { transform: translateX(2px); }
+  }
+
+  /* Smooth height transitions for accordion-like content */
+  .height-transition {
+    transition: max-height 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+  }
+
+  /* Interactive card hover effects */
+  .card-hover {
+    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid var(--color-bdr-subtle);
+  }
+
+  .card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px hsl(0, 0%, 0% / 0.15);
+    border-color: var(--color-vscode-blue);
+  }
+
+  /* Smooth focus states */
+  .focus-smooth {
+    transition: box-shadow 150ms ease-out;
+  }
+
+  .focus-smooth:focus {
+    box-shadow: 0 0 0 2px var(--color-vscode-blue);
+  }
+
+  /* Loading states with smooth transitions */
+  .loading-fade {
+    animation: fadeIn 300ms ease-out;
+  }
+
+  .loading-fade-out {
+    animation: fadeOut 200ms ease-in;
+  }
+
+  /* Interactive button states */
+  .button-interactive {
+    position: relative;
+    overflow: hidden;
+    transition: all 150ms ease-out;
+  }
+
+  .button-interactive::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: hsl(0, 0%, 100% / 0.1);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 300ms, height 300ms;
+  }
+
+  .button-interactive:hover::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  /* Smooth icon animations */
+  .icon-bounce {
+    animation: iconBounce 0.6s ease-out;
+  }
+
+  @keyframes iconBounce {
+    0%, 100% { transform: translateY(0); }
+    25% { transform: translateY(-4px); }
+    75% { transform: translateY(2px); }
+  }
+
+  /* Typing indicator animation */
+  .typing-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .typing-indicator span {
+    width: 8px;
+    height: 8px;
+    background: var(--color-vscode-blue);
+    border-radius: 50%;
+    animation: typing 1.4s infinite;
+  }
+
+  .typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes typing {
+    0%, 60%, 100% {
+      transform: translateY(0);
+      opacity: 0.5;
+    }
+    30% {
+      transform: translateY(-10px);
+      opacity: 1;
+    }
+  }
+
+  /* Smooth transitions for dark mode toggle */
+  .theme-transition {
+    transition: background-color 300ms ease-out, color 300ms ease-out, border-color 300ms ease-out;
+  }
+
+  /* Enhanced hover states for links */
+  .link-enhanced {
+    position: relative;
+    text-decoration: none;
+    transition: color 150ms ease-out;
+  }
+
+  .link-enhanced::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-vscode-blue);
+    transition: width 150ms ease-out;
+  }
+
+  .link-enhanced:hover::after {
+    width: 100%;
+  }
+
+  /* Smooth scroll behavior */
+  .smooth-scroll {
+    scroll-behavior: smooth;
+  }
+
+  /* Enhanced transitions for modal/dialog */
+  .modal-backdrop {
+    animation: fadeIn 200ms ease-out;
+  }
+
+  .modal-content {
+    animation: scaleIn 200ms ease-out;
+  }
+
+  /* Performance optimization: will-change for frequently animated elements */
+  .performance-optimized {
+    will-change: transform;
+  }
+
+  /* Reduced motion support for animations */
+  @media (prefers-reduced-motion: reduce) {
+    .gradient-animate,
+    .pulse-gentle,
+    .skeleton-shimmer,
+    .success-feedback,
+    .error-shake,
+    .icon-bounce,
+    .typing-indicator span {
+      animation: none;
+    }
+
+    .micro-interact:hover,
+    .card-hover:hover,
+    .button-interactive:hover {
+      transform: none;
+    }
+  }
+
   /* Text truncation utilities */
   .line-clamp-1 {
     overflow: hidden;
@@ -153,14 +616,14 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
   }
-  
+
   .line-clamp-2 {
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
   }
-  
+
   .line-clamp-3 {
     overflow: hidden;
     display: -webkit-box;

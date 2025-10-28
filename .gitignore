@@ -103,3 +103,6 @@ temp/
 
 # Prisma
 prisma/migrations/
+docs/tasks
+docs/bugs.md
+CLAUDE.md
